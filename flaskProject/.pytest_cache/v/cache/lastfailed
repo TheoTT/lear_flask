@@ -1,0 +1,3 @@
+{
+  "test/test_blog.py::test_login_required[/create]": true
+}
