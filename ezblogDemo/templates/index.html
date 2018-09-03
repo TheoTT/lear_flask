@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>ezBlogDemo</title>
+</head>
+<body>
+ 
+	<center><h1>ezBlogDemo</h1></center>
+	{# 这是jinja2的注释格式 #} 
+	<center><h1>{{ id }} --- {{ name }} --- {{ time }} </h1></center>
+	
+	
+
+
+	<center>
+		<form action="{{ url_for('index') }}" method='POST' >
+			用户名：<input type="text",name="user"><br>
+			标题：<input type="text",name="title"><br>
+			内容：<input type="text",name="conment"><br>
+			<button>提交</button>
+		</form>
+	
+	</center>
+	
+	
+	<center>
+		<table>
+			<tr>
+				<th>user </th>
+				<th>title </th>
+				<th>conment </th>			
+				<th>time </th>
+			</tr>
+			{% for conment in conments %}
+				<tr>
+					<td>{{ conment['user'] }}</td>
+					<td>{{ conment['title'] }}</td>
+					<td>{{ conment['conment'] }}</td>
+					<td>{{ conment['createTime'] }}</td>
+				
+				</tr>
+			{% endfor %}
+		
+		
+		</table>
+	
+	
+	</center>
+
+</body>
+</html>

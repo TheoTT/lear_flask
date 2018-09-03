@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "flask_introduce.py", line 20, in <module>
+    app.run(host='127.0.0.1',port=8080,debug=Ture)
+NameError: name 'Ture' is not defined
+ * Serving Flask app "flask_introduce" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 336-539-176
+127.0.0.1 - - [29/Aug/2018 19:29:21] "GET / HTTP/1.1" 200 -
+ * Detected change in '/home/python/project/flask/learn_flask/flask_introduce.py', reloading
+ * Restarting with stat
+  File "flask_introduce.py", line 20
+    app.run(host='127.0.0.1',port=8080,debug=True,lo)
+                                                    ^
+SyntaxError: positional argument follows keyword argument

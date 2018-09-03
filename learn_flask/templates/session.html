@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>learnSession</title>
+</head>
+<body>
+ 
+	<center><h1>get方法</h1></center>
+	{# 这是注释 #} 
+	<center><h1>{{ name }}</h1></center>
+	<center><h1>{{ age }}</h1></center>
+	<center>
+		{% for item in name %}
+			<li>name:{{ item }} </li>	
+		{% endfor %}
+
+	</center>
+
+	<center><h1>post方法</h1></center>
+	{# 这是注释 #} 
+	<center>
+		<form action="{{ url_for('testSess') }}" method="POST">
+			id:<input type="text" name="id"><br>
+			<button>提交</button>
+		</form>
+
+		<h2>
+			{% if id  %}
+				ID是:{{ id }}
+			{% else %}
+				Hello Session
+			{% endif %}
+
+		</h2>
+	</center>
+</body>
+</html>

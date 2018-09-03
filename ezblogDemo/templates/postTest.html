@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>ezBlogDemo</title>
+</head>
+<body>
+ 
+	<center><h1>ezBlogDemo</h1></center>
+
+	<center>
+		<form action="{{ url_for('test') }}" method="POST">
+			用户名：<input type="text",name="user",value="user"><br>
+			标题：<input type="text",name="title"><br>
+			内容：<input type="text",name="conment"><br>
+			<button>提交</button>
+		</form>
+	
+	</center>
+</body>
