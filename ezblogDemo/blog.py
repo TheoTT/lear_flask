@@ -1,8 +1,12 @@
 import os
 import time
+import datetime as dt
+
 from flask import Flask, render_template, redirect, abort, request, session,url_for
 from webargs import fields, validate
 from flask_sqlalchemy import SQLAlchemy
+
+
 
 conments = []
 app = Flask(__name__)
@@ -53,10 +57,12 @@ Integer-自增长类型
 """
 
 
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
-    created_time = db.Column()
+    created_time =
     title = db.Column()
     conment = db.Column()
 
