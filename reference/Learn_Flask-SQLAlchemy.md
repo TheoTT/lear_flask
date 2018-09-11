@@ -4,13 +4,15 @@
 
 参考：
 
-	https://blog.csdn.net/zyshappy/article/details/74092153
+​	https://www.cnblogs.com/mrchige/p/6389588.html
 
 ​	http://flask-sqlalchemy.pocoo.org/2.1/api/
 
 ​	http://www.pythondoc.com/flask-sqlalchemy/quickstart.html
 
-	https://blog.csdn.net/dszgf5717/article/details/53184025
+https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%9b%9b%e7%ab%a0%ef%bc%9a%e6%95%b0%e6%8d%ae%e5%ba%93.md
+
+
 
 
 
@@ -23,19 +25,42 @@
 
 
 
-数据类型：
+### 数据类型：
 
-| [`Integer`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Integer) | an integer                                                   |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [`String(size)`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.String) | a string with a maximum length (optional in some databases, e.g. PostgreSQL) |
-| [`Text`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Text) | some longer unicode text                                     |
-| [`DateTime`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.DateTime) | date and time expressed as Python [`datetime`](https://docs.python.org/3/library/datetime.html#datetime.datetime) object. |
-| [`Float`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Float) | stores floating point values                                 |
-| [`Boolean`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Boolean) | stores a boolean value                                       |
-| [`PickleType`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.PickleType) | stores a pickled Python object                               |
-| [`LargeBinary`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.LargeBinary) | stores large arbitrary binary data                           |
+| 常用列类型                                                   | python对象      | 说明                                                         |
+| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ |
+| [`Integer`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Integer) | int             | an integer（一般为32位）                                     |
+| SmallInteger                                                 | int             | 取值范围小的整数，一般为16位                                 |
+| [`String(size)`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.String) | str             | a string with a maximum length (optional in some databases, e.g. PostgreSQL) |
+| [`Text`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Text) | str             | some longer unicode text                                     |
+| unicode                                                      | unicode         | 变长unicode字符串                                            |
+| unicodeText                                                  | unicode         |                                                              |
+| [`DateTime`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.DateTime) |                 | date and time expressed as Python [`datetime`](https://docs.python.org/3/library/datetime.html#datetime.datetime) object. |
+| Date                                                         | datetime.date   | 日期                                                         |
+| Time                                                         | datetime.time   | 时间                                                         |
+| [`Float`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Float) | float           | stores floating point values                                 |
+| Numeric                                                      | decimal.Decimal | 定点数                                                       |
+| [`Boolean`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.Boolean) | bool            | stores a boolean value                                       |
+| [`PickleType`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.PickleType) |                 | stores a pickled Python object(python对象)                   |
+| [`LargeBinary`](http://docs.sqlalchemy.org/en/latest/core/type_basics.html#sqlalchemy.types.LargeBinary) | str             | stores large arbitrary binary data（二进制文件）             |
+|                                                              |                 |                                                              |
 
-（pickled 与JSON不同的是pickle不是用于多种语言间的数据传输，它仅作为python对象的持久化或者python程序间进行互相传输对象的方法，因此它支持了python所有的数据类型。可以参考：https://www.cnblogs.com/tkqasn/p/6005025.html）
+​	Flask-SQLAlchemy要求每一个model都定义主键（id）
+
+​	（pickled 与JSON不同的是pickle不是用于多种语言间的数据传输，它仅作为python对象的持久化或者python程序间进行互相传输对象的方法，因此它支持了python所有的数据类型。可以参考：https://www.cnblogs.com/tkqasn/p/6005025.html）
+
+### 数据约束：
+
+| primary_key | 主键                        |
+| ----------- | --------------------------- |
+| unique      | 不允许重复                  |
+| index       | 是否创建索引                |
+| nullable    | 是否允许为空（False不允许） |
+| default     | 定义默认值                  |
+
+
+
+
 
 ```
 class User(db.Model):
@@ -49,9 +74,50 @@ class User(db.Model):
 
 
 
+### 表关系：
 
 
-### One-to-Many Relationships
+
+#### One-to-Many Relationships
+
+对于一个普通的博客应用来说，用户和文章显然是一个一对多的关系，一篇文章属于一个用户，一个用户可以写很多篇文章，那么他们之间的关系可以这样定义：
+
+class User(Base):
+
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    username = Column(String(64), nullable=False, index=True)
+    password = Column(String(64), nullable=False)
+    email = Column(String(64), nullable=False, index=True)
+    articles = relationship('Article')
+    
+    def __repr__(self):
+        return '%s(%r)' % (self.__class__.__name__, self.username)
+
+
+class Article(Base):
+
+    __tablename__ = 'articles'
+    
+    id = Column(Integer, primary_key=True)
+    title = Column(String(255), nullable=False, index=True)
+    content = Column(Text)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    author = relationship('User')
+    
+    def __repr__(self):
+        return '%s(%r)' % (self.__class__.__name__, self.title)
+
+每篇文章有一个外键指向 users 表中的主键 id， 而在 User 中使用 SQLAlchemy 提供的 relationship 描述 关系。而用户与文章的之间的这个关系是双向的，所以我们看到上面的两张表中都定义了 relationship。
+
+SQLAlchemy 提供了 backref 让我们可以只需要定义一个关系：
+
+articles = relationship('Article', backref='author')
+
+添加了这个就可以不用再在 Article 中定义 relationship 了！
+
+
 
 ```
 class Person(db.Model):
@@ -77,9 +143,65 @@ class User(db.Model):
 
 
 
+#### One-to-One Relationships
 
 
-### Many-to-Many Relationships
+
+在 User 中我们只定义了几个必须的字段， 但通常用户还有很多其他信息，但这些信息可能不是必须填写的，我们可以把它们放到另一张 UserInfo 表中，这样User 和 UserInfo 就形成了一对一的关系。你可能会奇怪一对一关系为什么不在一对多关系前面？那是因为一对一关系是基于一对多定义的：
+
+class User(Base):
+
+    __tablename__ = 'users'
+    
+    id = Column(Integer, primary_key=True)
+    username = Column(String(64), nullable=False, index=True)
+    password = Column(String(64), nullable=False)
+    email = Column(String(64), nullable=False, index=True)
+    articles = relationship('Article', backref='author')
+    userinfo = relationship('UserInfo', backref='user', uselist=False)
+    
+    def __repr__(self):
+        return '%s(%r)' % (self.__class__.__name__, self.username)
+
+
+class UserInfo(Base):
+
+    __tablename__ = 'userinfos'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64))
+    qq = Column(String(11))
+    phone = Column(String(11))
+    link = Column(String(64))
+    user_id = Column(Integer, ForeignKey('users.id'))
+
+定义方法和一对多相同，只是需要添加 userlist=False 。
+
+
+
+#### Many-to-Many Relationships
+
+一遍博客通常有一个分类，好几个标签。标签与博客之间就是一个多对多的关系。多对多关系不能直接定义，需要分解成俩个一对多的关系，为此，需要一张额外的表来协助完成：
+
+article_tag = Table(
+    'article_tag', Base.metadata,
+    Column('article_id', Integer, ForeignKey('articles.id')),
+    Column('tag_id', Integer, ForeignKey('tags.id'))
+)
+
+
+class Tag(Base):
+
+    __tablename__ = 'tags'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String(64), nullable=False, index=True)
+    
+    def __repr__(self):
+        return '%s(%r)' % (self.__class__.__name__, self.name)
+
+
+
 
 ```
 tags = db.Table('tags',
@@ -95,6 +217,14 @@ class Page(db.Model):
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 ```
+
+
+
+
+
+
+
+#### 自引用
 
 
 
@@ -206,7 +336,7 @@ r'sqlite:///C:\absolute\path\to\foo.db'
 ### Timeouts
 
 	某些数据库后端可能会施加不同的非活动连接超时，这会干扰Flask-SQLAlchemy的连接池，例如默认情况下，MariaDB配置为600秒超时。 这通常难以调试，生产环境只有例外（2013: Lost connection to MySQL server during query）这条异常提示。
-
+	
 	如果使用具有较低连接超时的后端（或预先配置的数据库即服务），建议SQLALCHEMY_POOL_RECYCLE设置为小于后端超时的值。
 
 

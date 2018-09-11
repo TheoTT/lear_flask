@@ -1,0 +1,13 @@
+.python-version
+test.db
+*.swp
+
+
+db/*
+logs/*
+*.pyc
+downloads/*
+__pycache__/*
+.pytest_cache/*
+
+ui/
