@@ -1,12 +1,43 @@
 [[source]]
-url = "https://pypi.org/simple"
-verify_ssl = true
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/" 
+verify_ssl = false
 name = "pypi"
 
 [packages]
 flask = "*"
+flask-marshmallow = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+flask-bcrypt = "*"
+flask-apispec = "*"
+marshmallow = ">=3.0.0b13"
+marshmallow-sqlalchemy = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
+click = "*"
+flask-jwt = "*"
+flask-role = "*"
+flask-admin = "*"
+pytest = "*"
+pytest-cov = "*"
 
 [dev-packages]
+flake8 = "*"
+flask-shell-ipython = "*"
+ipdb = "*"
+pytest = "*"
+pytest-flask = "*"
+pytest-cov = "*"
+factory-boy = "*"
+faker = "*"
+mimesis = "*"
+mimesis-factory = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3"
+
+[pipenv]
+allow_prereleases = true
+
+[packages.raven]
+extras = [ "flask",]

@@ -4,13 +4,13 @@
 
 参考：
 
-​	https://blog.csdn.net/zyshappy/article/details/74092153
+	https://blog.csdn.net/zyshappy/article/details/74092153
 
-	http://flask-sqlalchemy.pocoo.org/2.1/api/
+​	http://flask-sqlalchemy.pocoo.org/2.1/api/
 
-	http://www.pythondoc.com/flask-sqlalchemy/quickstart.html
+​	http://www.pythondoc.com/flask-sqlalchemy/quickstart.html
 
-​	https://blog.csdn.net/dszgf5717/article/details/53184025
+	https://blog.csdn.net/dszgf5717/article/details/53184025
 
 
 
@@ -156,7 +156,7 @@ This will raise 404 errors instead of returning None:
 
 ## 配置
 
-​	Flask-SQLAlchemy存在以下配置值，运行时从Flask app的主配置中加载。其中一些配置值在创建引擎之后无法修改。
+	Flask-SQLAlchemy存在以下配置值，运行时从Flask app的主配置中加载。其中一些配置值在创建引擎之后无法修改。
 
 
 
@@ -205,9 +205,9 @@ r'sqlite:///C:\absolute\path\to\foo.db'
 
 ### Timeouts
 
-​	某些数据库后端可能会施加不同的非活动连接超时，这会干扰Flask-SQLAlchemy的连接池，例如默认情况下，MariaDB配置为600秒超时。 这通常难以调试，生产环境只有例外（2013: Lost connection to MySQL server during query）这条异常提示。
+	某些数据库后端可能会施加不同的非活动连接超时，这会干扰Flask-SQLAlchemy的连接池，例如默认情况下，MariaDB配置为600秒超时。 这通常难以调试，生产环境只有例外（2013: Lost connection to MySQL server during query）这条异常提示。
 
-​	如果使用具有较低连接超时的后端（或预先配置的数据库即服务），建议SQLALCHEMY_POOL_RECYCLE设置为小于后端超时的值。
+	如果使用具有较低连接超时的后端（或预先配置的数据库即服务），建议SQLALCHEMY_POOL_RECYCLE设置为小于后端超时的值。
 
 
 
