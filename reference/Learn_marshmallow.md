@@ -5,6 +5,8 @@
 	官方文档：https://marshmallow.readthedocs.io/en/latest/custom_fields.html#method-fields
 	
 	简书：https://www.jianshu.com/p/594865f0681b
+	
+	flask-marshmallow：https://flask-marshmallow.readthedocs.io/en/latest/
 
 
 
