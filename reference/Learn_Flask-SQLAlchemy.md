@@ -7,10 +7,17 @@
 	https://www.cnblogs.com/mrchige/p/6389588.html
 	
 	http://flask-sqlalchemy.pocoo.org/2.1/api/
-	
+	http://flask-sqlalchemy.pocoo.org/2.3/models/#declaring-models
 	http://www.pythondoc.com/flask-sqlalchemy/quickstart.html
+	
+	https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%9b%9b%e7%ab%a0%ef%bc%9a%e6%95%b0%e6%8d%ae%e5%ba%93.md
+	
+	https://www.cnblogs.com/franknihao/p/7268752.html
 
-https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%9b%9b%e7%ab%a0%ef%bc%9a%e6%95%b0%e6%8d%ae%e5%ba%93.md
+
+	
+
+
 
 
 
@@ -51,9 +58,9 @@ https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac
 |                                                              |                 |                                                              |
 
 	Flask-SQLAlchemy要求每一个model都定义主键（id）
-
+	
 	（pickled 与JSON不同的是pickle不是用于多种语言间的数据传输，它仅作为python对象的持久化或者python程序间进行互相传输对象的方法，因此它支持了python所有的数据类型。可以参考：https://www.cnblogs.com/tkqasn/p/6005025.html）
-
+	
 	(定点数（fixed-point）：字面意思看，小数点位置是固定的，即约定机器中所有数据的小数点位置是不变的。在计算机中通常有两种简单的约定：将小数点的位置固定放在数据的最高位之前，或者固定在最低位数据之后，一般称前者为定点小数，后者为定点整数)
 
 ### 数据约束：
@@ -414,3 +421,116 @@ r'sqlite:///C:\absolute\path\to\foo.db'
 
 
 
+
+
+extract
+
+一种方法是先获取那个月份的第一天和最后一天的datetime，再使用`between`，例如：
+
+```Python
+# 基于Flask的SQLAlchemy
+
+# models
+class History(db.Model):
+    __tablename__ = 'historys'
+    id = db.Column(db.Integer, primary_key=True)
+    date= db.Column(db.Date)
+# firstDay：某年某月的第一天，datetime类型
+# lastDay：某年某月的最后一天，datetime类型
+historys = History.query.filter(History.date.between(firstDay, lastDay)).all()
+```
+
+关于获取某月份的第一天和最后一天，可以参考[这里](http://blog.csdn.net/yannanxiu/article/details/53809600)。
+
+
+
+这个方法要使用`extract`函数，这个函数可以从datetime字段中分解出年月。不过在flask_sqlalchemy中没有`extract`，所以只能从sqlalchemy包导入。
+
+```Python
+from sqlalchemy import extract1
+```
+
+之后只需要这么写，就可以获取某月份的所有数据了
+
+```Python
+# 获取12月份的所有数据
+historys = History.query.filter(extract('month', History.date) == 12).all()12
+```
+
+但是用上面的查询会把往年的12月也查询出来，那么就加上年份的查询
+
+```Python
+from sqlalchemy import extract, and_
+
+historys = History.query.filter(_and(
+    extract('year', History.date) == 2016,
+    extract('month', History.date) == 12
+).all()
+```
+
+
+
+
+
+“Group By”从字面意义上理解就是根据“By”指定的规则对数据进行分组，所谓的分组就是将一个“数据集”划分成若干个“小区域”，然后针对若干个“小区域”进行数据处理。
+
+| 函数        | 作用         | 支持性               |
+| ----------- | ------------ | -------------------- |
+| sum(列名)   | 求和         |                      |
+| max(列名)   | 最大值       |                      |
+| min(列名)   | 最小值       |                      |
+| avg(列名)   | 平均值       |                      |
+| first(列名) | 第一条记录   | 仅Access支持         |
+| last(列名)  | 最后一条记录 | 仅Access支持         |
+| count(列名) | 统计记录数   | 注意和count(*)的区别 |
+
+group by 一般和聚合函数一起使用才有意义,比如 count sum avg等,使用group by的两个要素:
+    (1) 出现在select后面的字段 要么是是聚合函数中的,要么就是group by 中的.
+    (2) 要筛选结果 可以先使用where 再用group by 或者先用group by 再用having
+ 下面看下 group by多个条件的分析:
+ 在SQL查询器输入以下语句
+ create table test
+ (
+ a varchar(20),
+ b varchar(20),
+ c varchar(20)
+ )
+ insert into test values(1,'a','甲')
+ insert into test values(1,'a','甲')
+ insert into test values(1,'a','甲')
+ insert into test values(1,'a','甲')
+ insert into test values(1,'a','乙')
+ insert into test values(1,'b','乙')
+ insert into test values(1,'b','乙')
+ insert into test values(1,'b','乙')
+ 第一次查询
+
+select * from test; 结果如下图:
+
+![img](http://dl.iteye.com/upload/attachment/0070/0159/3c12766b-18e8-339a-b8f1-b05e7a02b825.jpg)
+
+结果中 按照b列来分:则是 5个a 3个b.
+
+
+ 按照c列来分:则是 4个甲 4个乙.
+
+
+ 第二次 按照 b列来分组 代码如下
+ select   count(a),b from test group by b
+
+![img](http://dl.iteye.com/upload/attachment/0070/0161/a9fce563-3cb7-3cbc-b12e-90e6561b42c3.jpg)
+
+第三次 按照 c列来分组 代码如下
+ select count(a),c from test group by c
+
+![img](http://dl.iteye.com/upload/attachment/0070/0163/0a9e81c6-e246-37aa-8c59-2d0053d00254.jpg)
+
+第四次 按照 b c两个条件来分组
+ select count(a),b,c from test group by b,c
+
+![img](http://dl.iteye.com/upload/attachment/0070/0165/7539f2cc-6157-386b-a908-1c0bafc2fc92.jpg)
+
+第五次 按照 c b 顺序分组
+ select count(a),b,c from test group by c,b
+
+![img](http://dl.iteye.com/upload/attachment/0070/0167/39e0d458-47e2-32e9-93ed-1cd185cba0d9.jpg)
