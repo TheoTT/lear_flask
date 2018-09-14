@@ -7,10 +7,14 @@
 	https://www.cnblogs.com/mrchige/p/6389588.html
 	
 	http://flask-sqlalchemy.pocoo.org/2.1/api/
-	
+	http://flask-sqlalchemy.pocoo.org/2.3/models/#declaring-models
 	http://www.pythondoc.com/flask-sqlalchemy/quickstart.html
+	
+	https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%9b%9b%e7%ab%a0%ef%bc%9a%e6%95%b0%e6%8d%ae%e5%ba%93.md
+	
+	
 
-https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%9b%9b%e7%ab%a0%ef%bc%9a%e6%95%b0%e6%8d%ae%e5%ba%93.md
+
 
 
 
@@ -51,9 +55,9 @@ https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac
 |                                                              |                 |                                                              |
 
 	Flask-SQLAlchemy要求每一个model都定义主键（id）
-
+	
 	（pickled 与JSON不同的是pickle不是用于多种语言间的数据传输，它仅作为python对象的持久化或者python程序间进行互相传输对象的方法，因此它支持了python所有的数据类型。可以参考：https://www.cnblogs.com/tkqasn/p/6005025.html）
-
+	
 	(定点数（fixed-point）：字面意思看，小数点位置是固定的，即约定机器中所有数据的小数点位置是不变的。在计算机中通常有两种简单的约定：将小数点的位置固定放在数据的最高位之前，或者固定在最低位数据之后，一般称前者为定点小数，后者为定点整数)
 
 ### 数据约束：

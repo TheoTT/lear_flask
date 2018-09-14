@@ -20,6 +20,24 @@ https://docs.pytest.org/en/latest/plugins.html
 
 
 
+构造测试数据：
+
+https://pypi.org/project/mimesis-factory/0.0.2/
+
+https://www.jianshu.com/p/60ae91b29def
+
+https://github.com/pytest-dev/pytest-factoryboy
+
+https://github.com/mimesis-lab/mimesis-factory
+
+https://pypi.org/project/mimesis/0.0.6/
+
+https://mimesis.readthedocs.io/advanced.html#using-with-orm
+
+http://joke2k.net/faker/
+
+
+
 
 
 
