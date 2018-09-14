@@ -1,5 +1,5 @@
 [[source]]
-url = "https://pypi.tuna.tsinghua.edu.cn/simple/" 
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 verify_ssl = false
 name = "pypi"
 
@@ -20,6 +20,8 @@ flask-role = "*"
 flask-admin = "*"
 pytest = "*"
 pytest-cov = "*"
+raven = { extras = [ "flask",] }
+faker = "*"
 
 [dev-packages]
 flake8 = "*"
@@ -32,12 +34,10 @@ factory-boy = "*"
 faker = "*"
 mimesis = "*"
 mimesis-factory = "*"
+pytest-factoryboy = "*"
 
 [requires]
 python_version = "3"
 
 [pipenv]
 allow_prereleases = true
-
-[packages.raven]
-extras = [ "flask",]
