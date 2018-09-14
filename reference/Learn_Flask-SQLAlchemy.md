@@ -5,9 +5,9 @@
 参考：
 
 	https://www.cnblogs.com/mrchige/p/6389588.html
-
+	
 	http://flask-sqlalchemy.pocoo.org/2.1/api/
-
+	
 	http://www.pythondoc.com/flask-sqlalchemy/quickstart.html
 
 https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%9b%9b%e7%ab%a0%ef%bc%9a%e6%95%b0%e6%8d%ae%e5%ba%93.md
@@ -52,9 +52,9 @@ https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac
 
 	Flask-SQLAlchemy要求每一个model都定义主键（id）
 
-​	（pickled 与JSON不同的是pickle不是用于多种语言间的数据传输，它仅作为python对象的持久化或者python程序间进行互相传输对象的方法，因此它支持了python所有的数据类型。可以参考：https://www.cnblogs.com/tkqasn/p/6005025.html）
+	（pickled 与JSON不同的是pickle不是用于多种语言间的数据传输，它仅作为python对象的持久化或者python程序间进行互相传输对象的方法，因此它支持了python所有的数据类型。可以参考：https://www.cnblogs.com/tkqasn/p/6005025.html）
 
-​	(定点数（fixed-point）：字面意思看，小数点位置是固定的，即约定机器中所有数据的小数点位置是不变的。在计算机中通常有两种简单的约定：将小数点的位置固定放在数据的最高位之前，或者固定在最低位数据之后，一般称前者为定点小数，后者为定点整数)
+	(定点数（fixed-point）：字面意思看，小数点位置是固定的，即约定机器中所有数据的小数点位置是不变的。在计算机中通常有两种简单的约定：将小数点的位置固定放在数据的最高位之前，或者固定在最低位数据之后，一般称前者为定点小数，后者为定点整数)
 
 ### 数据约束：
 
@@ -64,6 +64,28 @@ https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac
 | index       | 是否创建索引                |
 | nullable    | 是否允许为空（False不允许） |
 | default     | 定义默认值                  |
+
+
+
+外键foreign key
+
+
+
+ON DELETE 和 ON UPDATE,表示当发生delete和update时,会发生什么行为
+
+    NO ACTION:默认的,表示没有什么行为.
+    RESTRICT:当有一个child关联到parent时,禁止delete或update parent
+    SET NULL:当parent被delete或update时,child的的关联字段被置为null(如果字段有not null,就出错)
+    SET DEFAULT:类似于SET NULL (是不是设置默认值?没有试过)
+    CASCADE:将实施在parent上的删除或更新操作,传播给你吧与之关联的child上.
+    对于 ON DELETE CASCADE, 同被删除的父表中的行 相关联的子表中的每1行,也会被删除.
+    对于ON UPDATE CASCADE, 存储在子表中的每1行,对应的字段的值会被自动修改成同新的父键匹配
+
+3.使用注意
+
+不论update,insert,replace,要涉及到外键的改变的,要确保父表的存在,否则会因为约束的存在,导致操作失败.
+
+
 
 
 

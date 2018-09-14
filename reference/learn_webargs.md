@@ -246,9 +246,9 @@ When you need more flexibility in defining input schemas, you can pass a marshma
 
 注：
 
-​	1.You should always set `strict=True` (either as a `class Meta` option or in the Schema’s constructor) when passing a schema to webargs. This will ensure that the parser’s error handler is invoked when expected.（需要指定strict=True，或者在定义所需的schema时在class Meta中定义stric = True，这样能够确保在发生解析错误时，调用所期望的错误处理程序）
+	1.You should always set `strict=True` (either as a `class Meta` option or in the Schema’s constructor) when passing a schema to webargs. This will ensure that the parser’s error handler is invoked when expected.（需要指定strict=True，或者在定义所需的schema时在class Meta中定义stric = True，这样能够确保在发生解析错误时，调用所期望的错误处理程序）
 
-​	2. Any [`Schema`](https://marshmallow.readthedocs.io/en/latest/api_reference.html#marshmallow.Schema) passed to [`use_kwargs`](https://webargs.readthedocs.io/en/latest/api.html#webargs.core.Parser.use_kwargs) MUST deserialize to a dictionary of data. Keep this in mind when writing [`post_load`](https://marshmallow.readthedocs.io/en/latest/api_reference.html#marshmallow.decorators.post_load)methods.（所有传递给webargs的schema，都需要进行反序列化）
+	2. Any [`Schema`](https://marshmallow.readthedocs.io/en/latest/api_reference.html#marshmallow.Schema) passed to [`use_kwargs`](https://webargs.readthedocs.io/en/latest/api.html#webargs.core.Parser.use_kwargs) MUST deserialize to a dictionary of data. Keep this in mind when writing [`post_load`](https://marshmallow.readthedocs.io/en/latest/api_reference.html#marshmallow.decorators.post_load)methods.（所有传递给webargs的schema，都需要进行反序列化）
 
 ```
 from marshmallow import Schema, fields
