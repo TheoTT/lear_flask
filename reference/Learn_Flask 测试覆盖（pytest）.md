@@ -3,18 +3,18 @@ Flask 测试覆盖（pytest）
 参考：
 
 	https://dormousehole.readthedocs.io/en/latest/tutorial/tests.html
-
-https://dormousehole.readthedocs.io/en/latest/testing.html
-
+	
+	https://dormousehole.readthedocs.io/en/latest/testing.html
+	
 	https://blog.csdn.net/huitailang1991/article/details/74053781
+	
+	https://pytest-flask.readthedocs.io/en/latest/tutorial.html
+	
+	https://docs.pytest.org/en/latest/contents.html#toc
+	
+	https://docs.pytest.org/en/latest/plugins.html
 
 
-
-https://pytest-flask.readthedocs.io/en/latest/tutorial.html
-
-https://docs.pytest.org/en/latest/contents.html#toc
-
-https://docs.pytest.org/en/latest/plugins.html
 
 
 
@@ -22,6 +22,7 @@ https://docs.pytest.org/en/latest/plugins.html
 
 构造测试数据：
 
+```
 https://pypi.org/project/mimesis-factory/0.0.2/
 
 https://www.jianshu.com/p/60ae91b29def
@@ -35,6 +36,9 @@ https://pypi.org/project/mimesis/0.0.6/
 https://mimesis.readthedocs.io/advanced.html#using-with-orm
 
 http://joke2k.net/faker/
+
+
+```
 
 
 

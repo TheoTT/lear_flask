@@ -8,12 +8,10 @@
 
 
 """
-from flask import Flask,request,render_template,redirect,url_for
-
+from flask import Flask, request, render_template, redirect, url_for
 
 
 def create_app():
-
     app = Flask(__name__)
     app.config.from_mapping(
         DEBUG=True,
@@ -25,6 +23,4 @@ def create_app():
     def hello():
         return "<center><h1>hello world!</h1></center>"
     return app
-
-
 app = create_app()
