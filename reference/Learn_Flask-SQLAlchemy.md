@@ -12,9 +12,12 @@
 	
 	https://github.com/luhuisicnu/The-Flask-Mega-Tutorial-zh/blob/master/docs/%e7%ac%ac%e5%9b%9b%e7%ab%a0%ef%bc%9a%e6%95%b0%e6%8d%ae%e5%ba%93.md
 	
+<<<<<<< HEAD
 	https://www.cnblogs.com/franknihao/p/7268752.html
 
 
+=======
+>>>>>>> 6402763fec73d5ec33c370f09ba19558a10a8ac7
 	
 
 
